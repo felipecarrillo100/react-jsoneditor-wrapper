@@ -1,12 +1,12 @@
-# base62str
+# react-jsoneditor-wrapper
 A ReactTypescript wrapper for jsoneditor by josdejong
 
 ## How to install:
-npm install reactjsoneditor
+npm install react-jsoneditor-wrapper
 
 ## How to include
 ```javascript
-import ReactJSONEditor from "reactjsoneditor";
+import ReactJSONEditor from "react-jsoneditor-wrapper";
 ```
 ## To use
 ### Create an instance
