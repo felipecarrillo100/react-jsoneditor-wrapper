@@ -9,8 +9,8 @@ npm install react-jsoneditor-wrapper
 import ReactJSONEditor from "react-jsoneditor-wrapper";
 ```
 ## To use
-### Create an instance
-First create an instance: 
+### Create elements the React way
+Create an element with properties: 
 ```javascript
     <ReactJSONEditor json={properties} name="properties" mode="form" ref={ref => (this.jsoneditorref = ref)} />  
 ```  
