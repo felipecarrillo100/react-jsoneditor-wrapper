@@ -1,0 +1,30 @@
+{
+  "name": "react-jsoneditor-wrapper",
+  "version": "1.0.0",
+  "description": "A React Typescript wrapper for jsoneditor by josdejong.",
+  "keywords": [
+    "jsoneditor",
+    "react",
+    "typescript",
+    "josdejong"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felipecarrillo100/react-jsoneditor-wrapper"
+  },
+  "devDependencies": {
+    "@types/react": "16.0.39",
+    "@types/jsoneditor": "^5.28.1"
+  },
+  "dependencies": {
+    "jsoneditor": "^6.3.0"
+  },
+  "author": "Felipe Carrillo",
+  "license": "MIT"
+}
