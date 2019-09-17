@@ -1,6 +1,6 @@
 {
   "name": "react-jsoneditor-wrapper",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React Typescript wrapper for jsoneditor by josdejong.",
   "keywords": [
     "jsoneditor",
