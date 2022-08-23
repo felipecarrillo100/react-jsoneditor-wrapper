@@ -19,3 +19,4 @@ If you prefer you can use text instead of a json object. Text will be parsed in 
   <ReactJSONEditor ref={ref => (this.jsonEditorRef = ref)}  text={this.state.content} name="properties" mode="code" modes={["code"]}/>
 ```
 
+Small sample here: https://codesandbox.io/s/react-jsoneditor-wrapper-74rz6i
