@@ -1,10 +1,16 @@
 # React JSON Editor Wrapper
 
-A high-performance, **universally compatible** React wrapper for [jsoneditor](https://github.com/josdejong/jsoneditor). 
+A high-performance, **universally compatible** React wrapper for the well-known [jsoneditor](https://github.com/josdejong/jsoneditor) by Jos de Jong.
 
 Built to run everywhere—from **React 16.8** legacy systems to **React 19** modern applications—without changing a single line of code.
 
+> **NOTE**: This project is currently in maintenance mode. For new users, we recommend checking out the more recent [modern-react-json-editor](https://www.npmjs.com/package/modern-react-json-editor).
+
+---
+
+
 ## 🚀 Key Features
+
 
 * **Universal Core**: Supports React 16.8, 17, 18, and 19.
 * **Zero-Config Compatibility**: Automatically handles the React 19 "Fiber" export trick and React 16 "Classic" JSX transform.
