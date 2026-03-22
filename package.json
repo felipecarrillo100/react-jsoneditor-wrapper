@@ -1,6 +1,6 @@
 {
   "name": "react-jsoneditor-wrapper",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "A React Typescript wrapper for jsoneditor by josdejong.",
   "keywords": [
     "jsoneditor",
@@ -11,20 +11,39 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc && copyfiles -u 1 ./src/*.css ./dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc && shx cp ./src/*.css ./dist/",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/felipecarrillo100/react-jsoneditor-wrapper"
   },
-  "devDependencies": {
-    "@types/jsoneditor": "^9.5.1",
-    "@types/react": "^18.0.17",
-    "copyfiles": "^2.4.1"
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
   },
   "dependencies": {
-    "jsoneditor": "^9.9.0"
+    "jsoneditor": "^10.1.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/jest": "^30.0.0",
+    "@types/jsoneditor": "^9.9.6",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "shx": "^0.4.0",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.4.0"
+  },
+  "overrides": {
+    "glob": "^10.3.10",
+    "minimatch": "^9.0.3"
   },
   "author": "Felipe Carrillo",
   "license": "MIT"

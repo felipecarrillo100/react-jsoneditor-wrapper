@@ -7,10 +7,14 @@
     "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
-    "jsx": "react"
+    "jsx": "react", // <--- CHANGE THIS (was react-jsx)
+    "types": ["node"] // Remove jest if you aren't using it for the build
   },
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "**/*.test.tsx",
+    "**/*.test.ts",
+    "jest.setup.ts"
   ]
 }
