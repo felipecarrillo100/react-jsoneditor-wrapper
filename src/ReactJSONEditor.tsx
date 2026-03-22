@@ -1,21 +1,39 @@
 import * as React from "react";
-import JSONEditor, { JSONEditorOptions } from "jsoneditor";
+import JSONEditor, { JSONEditorOptions, JSONEditorMode } from "jsoneditor";
 import 'jsoneditor/dist/jsoneditor.min.css';
 import "./ReactJSONEditor.css";
 
 export interface ReactJSONEditorProps {
+    // Legacy & Core Props (Kept for backwards compatibility)
     json?: any;
-    text?: any;
-    name: string;
-    mode?: any; // Changed to any to match jsoneditor's internal type string unions
-    modes?: any[];
+    text?: string;
+    name?: string;
+    mode?: JSONEditorMode;
+    modes?: JSONEditorMode[];
     onChange?: () => void;
     onChangeJSON?: (json: any) => void;
     onChangeText?: (text: string) => void;
+
+    // Modern Extensions (Inspired by felipecarrillo100/modern-react-json-editor)
+    schema?: any;
+    schemaRefs?: any;
+    search?: boolean;
+    history?: boolean;
+    navigationBar?: boolean;
+    statusBar?: boolean;
+    readOnly?: boolean;
+    indentation?: number;
+    theme?: string;
+
+    // Modern Callbacks
+    onEditable?: (node: any) => boolean | { field: boolean; value: boolean };
+    onError?: (error: Error) => void;
+    onValidationError?: (errors: any[]) => void;
+    onModeChange?: (newMode: JSONEditorMode, oldMode: JSONEditorMode) => void;
+    onClassName?: (node: any) => string | undefined;
 }
 
 export class ReactJSONEditor extends React.Component<ReactJSONEditorProps> {
-    // Explicitly typing the editor instance
     public editor: JSONEditor | null = null;
     private container: HTMLDivElement | null = null;
 
@@ -26,18 +44,20 @@ export class ReactJSONEditor extends React.Component<ReactJSONEditorProps> {
     public componentDidUpdate(prevProps: ReactJSONEditorProps) {
         if (!this.editor) return;
 
-        // Update JSON if it changed
-        if (this.props.json !== prevProps.json && this.props.json !== undefined) {
-            this.editor.update(this.props.json);
-        }
-        // Update Text if it changed
-        else if (this.props.text !== prevProps.text && this.props.text !== undefined) {
-            this.editor.updateText(this.props.text);
-        }
-
-        // Handle mode changes dynamically if needed
+        // 1. Dynamic Mode & Schema updates (Modern requirement)
         if (this.props.mode !== prevProps.mode && this.props.mode) {
             this.editor.setMode(this.props.mode);
+        }
+        if (this.props.schema !== prevProps.schema) {
+            this.editor.setSchema(this.props.schema);
+        }
+
+        // 2. Content Sync Logic
+        // We prioritize JSON over Text if both are provided
+        if (this.props.json !== undefined && this.props.json !== prevProps.json) {
+            this.editor.update(this.props.json);
+        } else if (this.props.text !== undefined && this.props.text !== prevProps.text) {
+            this.editor.updateText(this.props.text);
         }
     }
 
@@ -49,18 +69,29 @@ export class ReactJSONEditor extends React.Component<ReactJSONEditorProps> {
     }
 
     private createEditor() {
-        // Cleanup existing instance if this is called twice (React 18/19 Strict Mode safety)
         if (this.editor) {
             this.editor.destroy();
         }
 
+        // Destructure with smart defaults
         const {
             mode = "form",
             name = "JSON editor",
             modes = ["form", "tree", "code", "view"],
+            search = true,
+            history = true,
+            navigationBar = true,
+            statusBar = true,
+            indentation = 2,
+            schema,
+            schemaRefs,
             onChange,
             onChangeJSON,
             onChangeText,
+            onValidationError,
+            onModeChange,
+            onEditable,
+            onError,
             json,
             text
         } = this.props;
@@ -69,10 +100,20 @@ export class ReactJSONEditor extends React.Component<ReactJSONEditorProps> {
             mode,
             modes,
             name,
-            search: false,
+            schema,
+            schemaRefs,
+            search,
+            history,
+            navigationBar,
+            statusBar,
+            indentation,
             onChange,
             onChangeJSON,
-            onChangeText
+            onChangeText,
+            onValidationError: onValidationError as JSONEditorOptions["onValidationError"],
+            onModeChange,
+            onEditable,
+            onError
         };
 
         if (this.container) {
@@ -86,8 +127,8 @@ export class ReactJSONEditor extends React.Component<ReactJSONEditorProps> {
         }
     }
 
-    // Modern helper to safely get JSON
-    public getJSON() {
+    // Helper methods (Maintained for legacy imperative access)
+    public getJSON = () => {
         try {
             return this.editor ? this.editor.get() : undefined;
         } catch (e) {
@@ -95,8 +136,9 @@ export class ReactJSONEditor extends React.Component<ReactJSONEditorProps> {
         }
     }
 
+    public getText = () => this.editor ? this.editor.getText() : undefined;
+
     public render() {
-        // Callback refs are the most compatible way to handle DOM nodes 16 through 19
         return (
             <div
                 className="ReactJSONEditor"
